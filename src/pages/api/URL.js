@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import linkModel from '@/pages/model/urlModel';
+import linkModel from '@/model/urlModel';
 import mongoose from 'mongoose';
 
 export default async function POST(req, res) {

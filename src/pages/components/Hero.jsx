@@ -7,7 +7,7 @@ const Hero = () => {
   const [shortLinkData, setShortLinkData] = useState({});
 
   return (
-    <div className="flex flex-col text-center md:py-32 py-14 gap-3">
+    <div className="flex flex-col text-center md:py-6 gap-3">
       <div className="text-[#7366FE] uppercase text-sm tracking-wide">
         Your new Link Shortner
       </div>
