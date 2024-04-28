@@ -22,7 +22,7 @@ const SearchBar = ({setShortLinkData}) => {
     }
 
     await axios
-      .post("http://localhost:3000/api/URL", {
+      .post("/api/URL", {
         originalLink: link,
       })
       .then((res) => {
