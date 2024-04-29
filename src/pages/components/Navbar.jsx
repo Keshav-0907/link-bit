@@ -8,9 +8,9 @@ const Navbar = () => {
         <Link href="/" className="cursor-pointer"> Link Bit </Link>
       </div>
 
-      <div className="md:flex hidden gap-8">
-        <div className="bg-white text-black px-3 py-1 rounded-xl cursor-pointer">Create Account</div>
-        <div className="cursor-pointer">Login</div>
+      <div className="md:flex hidden gap-6">
+        <div className="bg-black text-white border border-gray-600 px-4 py-2 rounded-full text-sm cursor-pointer hover:text-gray-400">Create Account</div>
+        <div className="cursor-pointer px-2 py-1 hover:text-gray-400">Login</div>
       </div>
     </div>
   );
