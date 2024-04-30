@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const SearchBar = ({setShortLinkData}) => {
   const [link, setLink] = useState("");
@@ -17,10 +18,11 @@ const SearchBar = ({setShortLinkData}) => {
     );
 
     if (!urlPattern.test(link)) {
-      alert("Invalid URL");
+      toast.error("Please enter a valid URL");
       return;
     }
 
+   
     await axios
       .post("/api/URL", {
         originalLink: link,
@@ -35,12 +37,13 @@ const SearchBar = ({setShortLinkData}) => {
 
   return (
     <div className="flex justify-center">
-      <div className=" md:w-1/2 w-full rounded-full flex p-2 gap-2">
+      <Toaster />
+      <div className=" md:w-1/2 w-full rounded-full flex p-2 gap-2 md:flex-row flex-col">
         <input
           onChange={(e) => setLink(e.target.value)}
           type="text"
           placeholder="Enter your link here"
-          className="bg-black/70 text-white px-6 py-1 rounded-full w-full focus:outline-none"
+          className="bg-black/70 text-white px-6 py-2 rounded-full w-full focus:outline-none"
         />
         <button
           onClick={handleLinkShorting}

@@ -22,13 +22,19 @@ const Hero = () => {
           <span className="text-[32px]">✨</span>
         </div>
       </div>
-      <div className="py-5">
-        <SearchBar setShortLinkData={setShortLinkData}/>
-      </div>
-      <div>
-       {
-          Object.keys(shortLinkData).length > 0 ? <Output shortLinkData={shortLinkData} /> : null
-       }
+
+      <div className="">
+
+        <div className="py-5">
+          <SearchBar setShortLinkData={setShortLinkData} />
+        </div>
+
+        <div>
+          {Object.keys(shortLinkData).length > 0 ? (
+            <Output shortLinkData={shortLinkData} />
+          ) : null}
+        </div>
+
       </div>
     </div>
   );

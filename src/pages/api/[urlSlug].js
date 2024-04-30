@@ -6,7 +6,7 @@ export default async function GET(req, res) {
         const link = await linkModel.findOneAndUpdate(
             { shortLink: urlSlug },
             { $inc: { clicks: 1 } }, 
-            { new: true } // Return the updated document
+            { new: true }
         );
         if (link) {
             res.status(200).redirect(link.originalLink);
