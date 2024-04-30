@@ -8,17 +8,18 @@ const Hero = () => {
 
   return (
     <div className="flex flex-col text-center md:py-6 gap-3">
-      <div className="text-[#7366FE] uppercase text-sm tracking-wide">
+      <div className="text-[#8bb8fd] uppercase text-sm tracking-wide">
         Your new Link Shortner
       </div>
-      <div className="md:text-7xl text-4xl font-bold text-white">
+      <div className="md:text-7xl text-2xl font-bold text-white">
         <div>We make Long links</div>
         <div className="">
           look{" "}
-          <span className="bg-[#B5AEFF] inline-flex bg-opacity-25 p-1 rounded-lg">
+          <span className="bg-[#b5daf0] inline-flex bg-opacity-25 p-2 rounded-xl">
             {" "}
-            Shorty 🤌
+            Shorty
           </span>
+          <span className="text-[32px]">✨</span>
         </div>
       </div>
       <div className="py-5">
