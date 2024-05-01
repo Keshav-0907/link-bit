@@ -15,6 +15,8 @@ export default async function POST(req, res) {
             shortLink: slug
         });
 
+        console.log('Link created successfully:', newShortLink);
+
         if (!newShortLink) {
             throw new Error('Error creating link');
         }
