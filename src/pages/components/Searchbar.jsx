@@ -2,11 +2,29 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const SearchBar = ({setShortLinkData}) => {
   const [link, setLink] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (session) {
+      setUser(session.user);
+    }
+  }, [session]);
 
   const handleLinkShorting = async () => {
+
+    if(!user){
+      toast.error('Please login to shorten the link')
+      return
+    
+    }
+    setLoading(true);
     const urlPattern = new RegExp(
       "^(https?:\\/\\/)?" +
         "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
@@ -21,11 +39,10 @@ const SearchBar = ({setShortLinkData}) => {
       toast.error("Please enter a valid URL");
       return;
     }
-
-   
     await axios
       .post("/api/URL", {
         originalLink: link,
+        useremail: user.email,
       })
       .then((res) => {
         setShortLinkData(res.data);
@@ -33,7 +50,10 @@ const SearchBar = ({setShortLinkData}) => {
       .catch((err) => {
         console.log(err);
       });
+    setLoading(false);
   };
+
+  console.log('Loading', loading)
 
   return (
     <div className="flex justify-center">

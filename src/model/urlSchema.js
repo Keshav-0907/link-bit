@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const linkSchema = new mongoose.Schema({
+const urlSchema = new mongoose.Schema({
     originalLink: {
         type: String,
         required: true
@@ -12,10 +12,14 @@ const linkSchema = new mongoose.Schema({
     clicks: {
         type: Number,
         default: 0
-    } 
+    },
+    useremail: {
+        type: String,
+        required: true
+    }
 }, {
     timestamps: true
 })
 
-const linkModel =  mongoose.models.link || mongoose.model('link', linkSchema);
-export default linkModel;
+const urlModel =  mongoose.models.URL || mongoose.model('URL', urlSchema);
+export default urlModel;

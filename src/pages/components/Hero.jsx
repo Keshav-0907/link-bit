@@ -31,7 +31,7 @@ const Hero = () => {
 
         <div>
           {Object.keys(shortLinkData).length > 0 ? (
-            <Output shortLinkData={shortLinkData} />
+            <Output shortLinkData={shortLinkData}/>
           ) : null}
         </div>
 

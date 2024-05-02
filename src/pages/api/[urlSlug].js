@@ -1,4 +1,4 @@
-import linkModel from '@/model/urlModel';
+import linkModel from '@/model/urlSchema';
 
 export default async function GET(req, res) {
     const { urlSlug } = req.query;
