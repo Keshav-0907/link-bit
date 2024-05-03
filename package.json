@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.0.0",
+    "@vercel/analytics": "^1.2.2",
     "axios": "^1.6.8",
     "copy-to-clipboard": "^3.3.3",
     "is-mobile": "^4.0.0",
