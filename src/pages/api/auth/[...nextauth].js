@@ -7,7 +7,8 @@ import clientPromise from "../../../utils/mongoClient";
 
 
 export const authOptions = {
-  adapter : MongoDBAdapter(clientPromise),  providers: [
+  adapter : MongoDBAdapter(clientPromise),  
+  providers: [
     // GithubProvider({
     //   clientId: process.env.GITHUB_ID,
     //   clientSecret: process.env.GITHUB_SECRET,
@@ -17,6 +18,7 @@ export const authOptions = {
       clientSecret: process.env.NEXT_PUBLIC_API_GOOGLE_CLIENT_SECRET
     })
   ],
+  secret:process.env.NEXT_PUBLIC_API_SECRET
 }
 
 const handler = NextAuth(authOptions)
