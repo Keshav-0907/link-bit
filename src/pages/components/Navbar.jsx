@@ -31,11 +31,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="text-white py-5 px-10 flex justify-between items-center relative">
+    <div className="text-white  px-10 flex justify-between items-center relative">
       <Toaster />
       <div className="text-xl font-semibold">
         <Link href="/" className="cursor-pointer">
-          <Image src={"/logo-link.png"} alt="logo" width={150} height={50} />
+          <Image src={"/Group 22.png"} alt="logo" width={150} height={50} />
         </Link>
       </div>
 
@@ -43,12 +43,12 @@ const Navbar = () => {
         <div>
           <Menu onClick={toggleMobileNav} />
           {isMobileNav && (
-            <div className="absolute top-16 left-0 w-full bg-[#0d0d0e]">
+            <div className="absolute top-16 left-0 w-full bg-white">
               {user ? (
                 <div className="flex flex-col gap-5 items-center">
                   <Link
                     href="/dashboard"
-                    className="block text-white py-2 px-4 hover:text-gray-400"
+                    className="block text-black py-2 px-4 hover:text-gray-400"
                   >
                     Go to Dashboard
                   </Link>
@@ -73,7 +73,7 @@ const Navbar = () => {
                 <div className="flex flex-col gap-5 items-center">
                   <div
                     onClick={() => signIn()}
-                    className="text-white py-2 px-4 cursor-pointer hover:text-gray-400"
+                    className="text-black bg py-2 px-4 cursor-pointer hover:text-gray-400"
                   >
                     Create Account
                   </div>
@@ -121,13 +121,13 @@ const Navbar = () => {
             <div className="md:flex hidden gap-6">
               <div
                 onClick={() => signIn()}
-                className="bg-black text-white border border-gray-600 px-4 py-2 rounded-full text-sm cursor-pointer hover:text-gray-400"
+                className="bg-white text-black  border border-black-400 px-4 py-2 rounded-full text-sm  cursor-pointer hover:text-gray-600"
               >
                 Create Account
               </div>
               <div
                 onClick={() => signIn()}
-                className="cursor-pointer px-2 py-1 hover:text-gray-400"
+                className="cursor-pointer  px-2 py-1 hover:text-gray-400"
               >
                 Login
               </div>

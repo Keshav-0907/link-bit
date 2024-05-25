@@ -58,16 +58,16 @@ const SearchBar = ({setShortLinkData}) => {
   return (
     <div className="flex justify-center">
       <Toaster />
-      <div className=" md:w-1/2 w-full rounded-full flex p-2 gap-2 md:flex-row flex-col">
+      <div className=" md:w-1/2 w-full rounded-full flex p-2 gap-2 md:flex-row flex-col  ">
         <input
           onChange={(e) => setLink(e.target.value)}
           type="text"
           placeholder="Enter your link here"
-          className="bg-black/70 text-white px-6 py-2 rounded-full w-full focus:outline-none"
+          className="bg-white/10 text-white px-6 py-2 rounded-full w-full focus:outline-none border border-gray-700"
         />
         <button
           onClick={handleLinkShorting}
-          className="bg-[#0d0d0e] text-white px-8 py-2 rounded-full border border-gray-700 text-center hover:text-gray-500"
+          className="bg-indigo-900 shadow-lg shadow-indigo-600/80  px-8 py-2 rounded-full border border-gray-700 text-center hover:text-gray-300"
         >
           Short
         </button>
