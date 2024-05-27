@@ -8,7 +8,6 @@ export default async function POST(req, res) {
 
     try {
         await mongoose.connect(process.env.NEXT_PUBLIC_API_MONGO_URI);
-        console.log('Connected to database');
 
         const newShortLink = await urlModel.create({
             originalLink: originalLink,

@@ -69,7 +69,7 @@ const SearchBar = ({setShortLinkData}) => {
           onClick={handleLinkShorting}
           className="bg-indigo-900 shadow-lg shadow-indigo-600/80  px-8 py-2 rounded-full border border-gray-700 text-center hover:text-gray-300"
         >
-          Short
+          {loading ? "Shortening..." : "Shorten"}
         </button>
       </div>
     </div>

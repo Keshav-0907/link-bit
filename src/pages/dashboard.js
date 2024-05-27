@@ -5,13 +5,13 @@ import axios from 'axios';
 import Link from 'next/link';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, Trash2 } from 'lucide-react';
 
 const Dashboard = () => {
   const { data: session } = useSession();
   const [user, setUser] = useState(null);
   const [usersURL, setUsersURL] = useState([]);
-  const [totalClicks, setTotalClicks] = useState(0); 
+  const [totalClicks, setTotalClicks] = useState(0);
   const router = useRouter();
   const [domain, setDomain] = useState("");
 
@@ -45,7 +45,9 @@ const Dashboard = () => {
     };
 
     fetchUserURLs();
-  }, [session, router]);
+  }, []);
+
+  console.log(usersURL)
 
   const copyToClipboard = (text) => {
     copy(text);
@@ -67,7 +69,7 @@ const Dashboard = () => {
         </div>
         <div className="bg-gray-800 border-[1px] text-white py-5 px-3 md:min-w-56 flex flex-col rounded-lg transition duration-300 hover:bg-gray-600">
           <span className="text-sm uppercase font-semibold">Total Clicks</span>
-          <span className="text-5xl font-bold">{totalClicks}</span> 
+          <span className="text-5xl font-bold">{totalClicks}</span>
         </div>
       </div>
       <div className='flex justify-end'>
@@ -76,7 +78,7 @@ const Dashboard = () => {
         </Link>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg" style={{ maxHeight: '300px' }}>
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -91,12 +93,16 @@ const Dashboard = () => {
               <th scope="col" className="px-6 py-3">
                 Shortened On
               </th>
+              <th scope="col" className="px-6 py-3">
+                Delete Link
+              </th>
             </tr>
           </thead>
           <tbody style={{ maxHeight: '100px', overflowY: 'auto' }}>
             {usersURL.map((url, index) => (
               <tr key={index} className="bg-white max-h-32 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                <td className="px-6 py-4">
                   <Link target='_blank' href={url.originalLink}>{url.originalLink}</Link>
                 </td>
                 <td className="px-6 py-4">
@@ -113,6 +119,9 @@ const Dashboard = () => {
                     month: 'long',
                     day: 'numeric',
                   })}
+                </td>
+                <td className="px-6 py-4">
+                <Trash2 size={20}/>
                 </td>
               </tr>
             ))}
