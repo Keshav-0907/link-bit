@@ -7,19 +7,21 @@ const Hero = () => {
   const [shortLinkData, setShortLinkData] = useState({});
 
   return (
-    <div className="flex flex-col text-center md:py-6 gap-3">
-      <div className="text-[#8bb8fd] uppercase text-sm tracking-wide">
+    <div className="flex flex-col text-center md:py-8 gap-3">
+      <div className="text-[#e2e4e7] uppercase text-sm tracking-wide  ">
         Your new Link Shortner
       </div>
-      <div className="md:text-7xl text-2xl font-bold text-white">
-        <div>We make Long links</div>
+      <div className="md:text-6xl text-4xl font-bold py-3 ">
+        <div className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 ">We make Long links</div>
         <div className="">
+          <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
           look{" "}
-          <span className="bg-[#b5daf0] inline-flex bg-opacity-25 p-2 rounded-xl">
+          </span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 inline-flex  p-2 ">
             {" "}
             Shorty
           </span>
-          <span className="text-[32px]">✨</span>
+          <span className="text-[32px]">🔗</span>
         </div>
       </div>
 
