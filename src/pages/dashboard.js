@@ -6,14 +6,16 @@ import Link from 'next/link';
 import copy from 'copy-to-clipboard';
 import toast from 'react-hot-toast';
 import { CirclePlus, Trash2 } from 'lucide-react';
+import URLTable from './components/URLTable';
 
 const Dashboard = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [user, setUser] = useState(null);
   const [usersURL, setUsersURL] = useState([]);
   const [totalClicks, setTotalClicks] = useState(0);
-  const router = useRouter();
   const [domain, setDomain] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [urlToDelete, setUrlToDelete] = useState(null);
 
   useEffect(() => {
     setDomain(window.location.origin);
@@ -30,34 +32,56 @@ const Dashboard = () => {
           console.log('User URLs:', response.data.data);
           setUsersURL(response.data.data);
 
-          // Calculate total clicks
           let clicks = 0;
           response.data.data.forEach(url => {
             clicks += url.clicks;
           });
           setTotalClicks(clicks);
-        } else {
-          router.push('/');
         }
       } catch (error) {
         console.error('Error fetching URLs:', error);
       }
     };
 
-    fetchUserURLs();
-  }, []);
+    if (status === 'authenticated') {
+      fetchUserURLs();
+    }
+  }, [session, status]);
 
-  console.log(usersURL)
-
-  const copyToClipboard = (text) => {
-    copy(text);
-    toast.success('Link copied to clipboard');
+  if (status === 'loading') {
+    return <div>Loading...</div>;
   }
 
-  if (!session) return <div>loading...</div>;
+  const deleteURL = async (id) => {
+    try {
+      const response = await axios.post('/api/deleteurl', {
+        id,
+        useremail: session.user?.email
+      });
+      if (response.data.success) {
+        toast.success('Link deleted successfully');
+        setUsersURL(usersURL.filter(url => url._id !== id));
+        setIsModalOpen(false); 
+      } else {
+        toast.error('Error deleting link');
+      }
+    } catch (error) {
+      console.error('Error deleting link:', error);
+    }
+  };
+
+  const openDeleteModal = (url) => {
+    setUrlToDelete(url);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setUrlToDelete(null);
+  };
 
   return (
-    <div className='md:px-20 px-5 flex flex-col gap-5'>
+    <div className='md:px-20 px-5 flex flex-col gap-5 h-[calc(100vh-100px)]'>
       <div>
         <h1 className='text-2xl font-semibold text-gray-800 dark:text-white'>Welcome back, {user?.name}</h1>
         <p className='mt-2 text-sm text-gray-500 dark:text-gray-400'>Here are your recent activities</p>
@@ -78,56 +102,31 @@ const Dashboard = () => {
         </Link>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg" style={{ maxHeight: '300px' }}>
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Original Link
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Shortened Link
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Total Clicks
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Shortened On
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Delete Link
-              </th>
-            </tr>
-          </thead>
-          <tbody style={{ maxHeight: '100px', overflowY: 'auto' }}>
-            {usersURL.map((url, index) => (
-              <tr key={index} className="bg-white max-h-32 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-
-                <td className="px-6 py-4">
-                  <Link target='_blank' href={url.originalLink}>{url.originalLink}</Link>
-                </td>
-                <td className="px-6 py-4">
-                  <Link target='_blank' href={`/api/${url.shortLink}`}>/{url.shortLink}</Link>
-                  <button onClick={() => copyToClipboard(`${domain}/api/${url.shortLink}`)} className='ml-2 text-xs text-blue-500 hover:text-white'>Copy</button>
-                </td>
-                <td className="px-6 py-4">
-                  {url.clicks}
-                </td>
-                <td className="px-6 py-4">
-                  {new Date(url.createdAt).toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </td>
-                <td className="px-6 py-4">
-                <Trash2 size={20}/>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <URLTable urls={usersURL} domain={domain} deleteURL={deleteURL} openDeleteModal={openDeleteModal} />
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg">
+            <h2 className="text-lg font-semibold mb-4">Are you sure you want to delete this link?</h2>
+            <p className="mb-4">{urlToDelete?.originalLink}</p>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={() => deleteURL(urlToDelete._id)}
+                className="px-4 py-2 bg-red-500 text-white rounded-md"
+              >
+                Yes, delete
+              </button>
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-gray-300 rounded-md"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

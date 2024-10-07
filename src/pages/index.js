@@ -21,8 +21,7 @@ export default function Home() {
   console.log({user});
 
   return (
-    <div className="main-container">
-      
+    <div className="main-container h-[calc(100vh-100px)]">
       <div className="px-10">
         <Hero />
       </div>
